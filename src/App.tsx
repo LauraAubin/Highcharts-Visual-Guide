@@ -3,6 +3,8 @@ import "./App.scss";
 
 import { Card, Page, AppProvider } from "@shopify/polaris";
 
+import Chart from "./Chart";
+
 interface State {
   color: string;
 }
@@ -17,15 +19,9 @@ class App extends React.Component<{}, State> {
     const {color} = this.state;
 
     return (
-      <AppProvider>
-        <Page title="This is made using Create React App">
-          <Card title="This is a card thanks to Polaris ⭐️">
-            <Card.Section>
-              <div className={color}>This text is {color.toLowerCase()} thanks to Sass 💅and Typescript 😄</div>
-            </Card.Section>
-          </Card>
-        </Page>
-      </AppProvider>
+      <>
+        <Chart />
+      </>
     );
   }
 }
