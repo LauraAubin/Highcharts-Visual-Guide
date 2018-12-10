@@ -1,0 +1,96 @@
+@function color($color, $hue: 'default') {
+  @if map-has-key($colors, $color) {
+
+    $scoped: map-get($colors, $color);
+    @return get-specific-color($color, $scoped, $hue);
+    
+  } @else {
+    @return black;
+  }
+}
+
+@function get-specific-color($color, $scoped, $hue) {
+  @if map-has-key($scoped, $hue) {
+    @return map-get($scoped, $hue);
+
+  } @else {
+    @return map-get($scoped, $color); 
+  }
+}
+
+$colors: (
+  sky: (
+    lighter: #F9FAFB,
+    light: #F4F6F8,
+    sky: #DFE3E8,
+    dark: #C4CDD5
+  ),
+  ink: (
+    lightest: #919EAB,
+    lighter: #637381,
+    light: #454F5B,
+    ink: #212B36
+  ),
+  titleBar: (
+    light: #B3B5CB,
+    titleBar: #43467F,
+    dark: #1C2260,
+    darker: #00044C
+  ),
+  purple: (
+    lighter: #F6F0FD,
+    light: #E3D0FF,
+    purple: #9C6ADE,
+    dark: #50248F,
+    darker: #230051
+  ),
+  indigo: (
+    lighter: #F4F5FA,
+    light: #B3BCF5,
+    indigo: #5C6AC4,
+    dark: #202E78,
+    darker: #000639
+  ),
+  blue: (
+    lighter: #EBF5FA,
+    light: #B4E1FA,
+    blue: #007ACE,
+    dark: #084E8A,
+    darker: #001429
+  ),
+  teal: (
+    lighter: #E0F5F5,
+    light: #B7ECEC,
+    teal: #47C1BF,
+    dark: #00848E,
+    darker: #003135
+  ),
+  green: (
+    lighter: #E3F1DF,
+    light: #BBE5B3,
+    green: #50B83C,
+    dark: #108043,
+    darker: #173630
+  ),
+  yellow: (
+    lighter: #FCF1CD,
+    light: #FFEA8A,
+    yellow: #EEC200,
+    dark: #9C6F19,
+    darker: #573B00
+  ),
+  orange: (
+    lighter: #FCEBDB,
+    light: #FFC58B,
+    orange: #F49342,
+    dark: #C05717,
+    darker: #4A1504
+  ),
+  red: (
+    lighter: #FBEAE5,
+    light: #FEAD9A,
+    red: #DE3618,
+    dark: #BF0711,
+    darker: #330101
+  )
+);
