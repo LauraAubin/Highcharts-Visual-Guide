@@ -5,14 +5,16 @@ import Exporting from "highcharts/modules/exporting";
 
 Exporting(Highcharts);
 
-const purple = "#AF8BE2";
+const defaultHighchartsBlue = "#7CB5EC";
+const grey = "#e2e2e2";
 
-// interface Props {
-//   rows: [number];
-//   columns: [string];
-// }
+interface Props {
+  rows?: [string];
+  columns?: [number];
+  lineColor?: string;
+}
 
-class Chart extends React.Component{
+class Chart extends React.Component<Props> {
   public render() {
     return <div id="container" />;
   }
@@ -26,14 +28,15 @@ class Chart extends React.Component{
   }
 
   public renderChart() {
-    // const { rows, columns } = this.props;
+    const {
+      rows = ["a", "b", "c", "d", "e"],
+      columns = [1, 2, 6, 2, 1],
+      lineColor = defaultHighchartsBlue
+    } = this.props;
 
     Highcharts.chart("container", {
       chart: {
-        height: 200,
-        showAxes: true,
-        spacing: [5, 15, 0, 0],
-        type: "line"
+        height: 200
       },
       credits: {
         enabled: false
@@ -44,7 +47,7 @@ class Chart extends React.Component{
       },
       plotOptions: {
         line: {
-          color: purple,
+          color: lineColor,
           lineWidth: 3
         },
         series: {
@@ -64,34 +67,22 @@ class Chart extends React.Component{
       },
       series: [
         {
-          data: [1, 2, 3]
+          data: columns
         }
       ],
       title: {
         text: undefined
       },
       xAxis: {
-        categories: [4, 5, 6],
+        categories: rows,
         crosshair: {
-          color: "rgba(204, 204, 204, 0.5)",
+          color: grey,
           width: 5
         },
-        endOnTick: true,
-        gridLineDashStyle: "Dash",
-        gridLineWidth: 0,
-        labels: {
-          step: 10,
-          y: 25
-        },
         min: 0.5,
-        minorTickLength: 2,
-        tickLength: 5,
         tickmarkPlacement: "on"
       },
       yAxis: {
-        minRange: 0.1,
-        softMax: 10,
-        softMin: 0,
         title: {
           text: undefined
         }
