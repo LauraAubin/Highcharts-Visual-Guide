@@ -1,27 +1,22 @@
 import * as React from "react";
+import { AppProvider } from "@shopify/polaris";
+
 import "./App.scss";
 
-import { Card, Page, AppProvider } from "@shopify/polaris";
+import Card from "./Card";
 
-import Chart from "./Chart";
-
-interface State {
-  color: string;
-}
-
-class App extends React.Component<{}, State> {
-  constructor(state: State) {
-    super(state);
-    this.state = { color: "Teal" };
-  }
-
+class App extends React.Component {
   public render() {
-    const {color} = this.state;
-
     return (
-      <>
-        <Chart />
-      </>
+      <AppProvider>
+        <Card
+          name="Line color"
+          description="Main color of the line itself"
+          link="https://api.highcharts.com/highcharts/plotOptions.line.color"
+          implementation="{plotOptions: {line: {color: value}}"
+          textFieldPlaceHolder="Default: #7CB5EC"
+        />
+      </AppProvider>
     );
   }
 }
