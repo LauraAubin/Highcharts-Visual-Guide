@@ -47,7 +47,7 @@ class Card extends React.Component<Props, State> {
       <div className="Card">
         <Stack distribution="equalSpacing" alignment="center" spacing="none">
           <Subheading>{name}</Subheading>
-          <a className="Link" href={link}>
+          <a className="Link" href={link} target="_blank">
             <Icon source="external" color="inkLighter" />
           </a>
         </Stack>

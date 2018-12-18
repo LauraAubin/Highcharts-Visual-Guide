@@ -73,6 +73,7 @@ class Chart extends React.Component<Props> {
       title: {
         text: undefined
       },
+      tooltip: { enabled: false },
       xAxis: {
         categories: rows,
         crosshair: {
