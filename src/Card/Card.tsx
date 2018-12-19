@@ -8,6 +8,7 @@ import {
   Stack
 } from "@shopify/polaris";
 import Chart from "../Chart";
+import Code from "../Code";
 
 import "./Card.scss";
 
@@ -43,6 +44,12 @@ class Card extends React.Component<Props, State> {
     } = this.props;
     const { input } = this.state;
 
+    const defaultValue = textFieldPlaceHolder.replace("Default: ", "");
+    const modifiedImplementationText =
+      input === ""
+        ? implementation.replace("value", defaultValue)
+        : implementation.replace("value", input);
+
     return (
       <div className="Card">
         <Stack distribution="equalSpacing" alignment="center" spacing="none">
@@ -58,11 +65,7 @@ class Card extends React.Component<Props, State> {
           <Chart lineColor={name === "Line color" ? input : undefined} />
         </div>
 
-        <Stack distribution="center">
-          <div className="Code">{implementation}</div>
-        </Stack>
-
-        <div className="TextField">
+        <Code surroundingText={implementation} value={input}>
           <TextField
             label="Input field"
             labelHidden
@@ -70,7 +73,7 @@ class Card extends React.Component<Props, State> {
             placeholder={textFieldPlaceHolder}
             onChange={this.handleInput}
           />
-        </div>
+        </Code>
       </div>
     );
   }
