@@ -1,5 +1,13 @@
-$teal: teal;
+@import 'src/GlobalStyles/Colors.scss';
 
-.Teal {
-  color: $teal;
+.SearchBarContainer {
+  width: 100%;
+  margin: 250px;
+}
+
+.TopBar {
+  position: relative;
+  display: flex;
+  height:  55px;
+  background-color: color(purple, dark);
 }
