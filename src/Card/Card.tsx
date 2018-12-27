@@ -7,7 +7,7 @@ import {
   Icon,
   Stack
 } from "@shopify/polaris";
-import Chart from "../Chart";
+import Chart from "./components/Chart";
 
 import "./Card.scss";
 
