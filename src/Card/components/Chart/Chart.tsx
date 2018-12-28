@@ -9,14 +9,20 @@ const defaultHighchartsBlue = "#7CB5EC";
 const grey = "#e2e2e2";
 
 interface Props {
+  id: string;
   rows?: [string];
   columns?: [number];
   lineColor?: string;
+  lineWidth?: number;
+  cursor?: string;
+  dashStyle?: string;
 }
 
 class Chart extends React.Component<Props> {
   public render() {
-    return <div id="container" />;
+    const { id } = this.props;
+
+    return <div id={id} />;
   }
 
   public componentDidMount() {
@@ -29,12 +35,16 @@ class Chart extends React.Component<Props> {
 
   public renderChart() {
     const {
+      id,
       rows = ["a", "b", "c", "d", "e"],
       columns = [1, 2, 6, 2, 1],
-      lineColor = defaultHighchartsBlue
+      lineColor = defaultHighchartsBlue,
+      lineWidth = 3,
+      cursor,
+      dashStyle = "solid"
     } = this.props;
 
-    Highcharts.chart("container", {
+    Highcharts.chart(id, {
       chart: {
         height: 200
       },
@@ -48,7 +58,9 @@ class Chart extends React.Component<Props> {
       plotOptions: {
         line: {
           color: lineColor,
-          lineWidth: 3
+          cursor: cursor,
+          dashStyle: dashStyle,
+          lineWidth: lineWidth
         },
         series: {
           marker: {

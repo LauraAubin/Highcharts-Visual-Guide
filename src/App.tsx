@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppProvider, Frame, TopBar } from "@shopify/polaris";
+import { AppProvider, Frame, TopBar, Stack } from "@shopify/polaris";
 import appLogo from "./images/HighchartsVisualGuide.svg";
 import Card from "./Card";
 
@@ -51,13 +51,48 @@ class App extends React.Component<{}, State> {
     return (
       <AppProvider theme={theme}>
         <Frame topBar={topBarMarkup}>
-          <Card
-            name="Line color"
-            description="Main color of the line itself"
-            link="https://api.highcharts.com/highcharts/plotOptions.line.color"
-            implementation="{plotOptions: {line: {color: value}}"
-            textFieldPlaceHolder="Default: #7CB5EC"
-          />
+          <Stack>
+            <Card
+              name="Line color"
+              description="Main color of the line itself"
+              link="https://api.highcharts.com/highcharts/plotOptions.line.color"
+              implementation="{plotOptions: {line: {color: value}}"
+              textFieldPlaceHolder="Default: #7CB5EC"
+            />
+            <Card
+              name="Line width"
+              description="Pixel width of the graph line"
+              link="https://api.highcharts.com/highcharts/plotOptions.line.lineWidth"
+              implementation="{plotOptions: {line: {lineWidth: value}}"
+              textFieldPlaceHolder="Default: 2"
+            />
+            <Card
+              name="Cursor type"
+              description="Mouse icon on graph hover. i.e, pointer"
+              link="https://api.highcharts.com/highcharts/plotOptions.line.cursor"
+              implementation="{plotOptions: {line: {cursor: value}}"
+              textFieldPlaceHolder="Default: undefined"
+            />
+            <Card
+              name="Dash style"
+              popoverItems={[
+                "Solid",
+                "ShortDash",
+                "ShortDot",
+                "ShortDashDot",
+                "ShortDashDotDot",
+                "Dot",
+                "Dash",
+                "LongDash",
+                "DashDot",
+                "LongDashDot",
+                "LongDashDotDot"
+              ]}
+              link="https://api.highcharts.com/highcharts/plotOptions.line.dashStyle"
+              implementation="{plotOptions: {line: {dashStyle: value}}"
+              textFieldPlaceHolder="Default: solid"
+            />
+          </Stack>
         </Frame>
       </AppProvider>
     );
