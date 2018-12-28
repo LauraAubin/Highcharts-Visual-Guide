@@ -5,7 +5,10 @@ import {
   TextStyle,
   TextField,
   Icon,
-  Stack
+  Stack,
+  Button,
+  Collapsible,
+  List
 } from "@shopify/polaris";
 import Chart from "./components/Chart";
 
@@ -13,7 +16,8 @@ import "./Card.scss";
 
 interface Props {
   name: string;
-  description: string;
+  description?: string;
+  popoverItems?: string[];
   link: string;
   implementation: string;
   textFieldPlaceHolder: string;
@@ -21,27 +25,37 @@ interface Props {
 
 interface State {
   input: string;
+  expandArea: boolean;
 }
 
 class Card extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { input: "" };
+    this.state = { input: "", expandArea: false };
   }
 
   handleInput = (input: string) => {
     this.setState({ input });
   };
 
+  handleExpandableArea = () => {
+    const { expandArea } = this.state;
+
+    this.setState({ expandArea: !expandArea });
+  };
+
   public render() {
     const {
       name,
       description,
+      popoverItems,
       link,
       implementation,
       textFieldPlaceHolder
     } = this.props;
-    const { input } = this.state;
+    const { input, expandArea } = this.state;
+
+    const evaluatedLineWidth = input === "" ? 2 : parseInt(input);
 
     return (
       <div className="Card">
@@ -54,8 +68,36 @@ class Card extends React.Component<Props, State> {
 
         <TextStyle variation="subdued">{description}</TextStyle>
 
+        {popoverItems && (
+          <div className="PopoverButton">
+            <Stack vertical>
+              <Button
+                onClick={this.handleExpandableArea}
+                ariaExpanded={expandArea}
+              >
+                Possible values
+              </Button>
+              <Collapsible open={expandArea} id="basic-collapsible">
+                <div className="popoverList">
+                  <List type="bullet">
+                    {popoverItems.map(item => (
+                      <List.Item>{item}</List.Item>
+                    ))}
+                  </List>
+                </div>
+              </Collapsible>
+            </Stack>
+          </div>
+        )}
+
         <div className="Chart">
-          <Chart lineColor={name === "Line color" ? input : undefined} />
+          <Chart
+            id={name}
+            lineColor={name === "Line color" ? input : undefined}
+            lineWidth={name === "Line width" ? evaluatedLineWidth : undefined}
+            cursor={name === "Cursor type" ? input : undefined}
+            dashStyle={name === "Dash style" ? input : undefined}
+          />
         </div>
 
         <Stack distribution="center">

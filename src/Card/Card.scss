@@ -32,3 +32,11 @@
 .TextField {
   padding-top: spacing();
 }
+
+.PopoverButton {
+  padding-top: spacing(tight);
+}
+
+.popoverList {
+  padding: 0 0 spacing() spacing(tight);
+}
