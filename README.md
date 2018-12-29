@@ -1,3 +1,9 @@
+## What is this?
+
+This is an interactive reference for using [Highcharts](https://www.highcharts.com/). This offers a live, isolated way of observing individual properties.
+
+<kbd>![image](https://github.com/LauraAubin/Highcharts-Visual-Guide/blob/master/src/images/Screenshot.png)</kbd>
+
 ## Development
 
 - Run the app with `npm start` and visit [http://localhost:3000](http://localhost:3000)
