@@ -3,12 +3,11 @@ import {
   AppProvider,
   Frame,
   TopBar,
-  Stack,
   Navigation,
   ChoiceList
 } from "@shopify/polaris";
+import Card from "./components/Card";
 import appLogo from "./images/HighchartsVisualGuide.svg";
-import Card from "./Card";
 
 import "./App.scss";
 
@@ -83,7 +82,7 @@ class App extends React.Component<{}, State> {
       <AppProvider theme={theme}>
         <Frame topBar={topBarMarkup} navigation={navigationMarkup}>
           <div className="CardContainer">
-            <Stack>
+            {/* <Stack> */}
               <Card
                 name="Line color"
                 description="Main color of the line itself"
@@ -124,7 +123,7 @@ class App extends React.Component<{}, State> {
                 implementation="{plotOptions: {line: {dashStyle: value}}"
                 textFieldPlaceHolder="Default: solid"
               />
-            </Stack>
+            {/* </Stack> */}
           </div>
         </Frame>
       </AppProvider>

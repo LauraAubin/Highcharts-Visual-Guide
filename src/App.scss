@@ -14,7 +14,17 @@
 }
 
 .CardContainer {
-  padding: spacing(loose);
+  display: grid;
+  grid-template-columns: 33.3% 33.3% 33.3%;
+  padding: 0 spacing(extraLoose) spacing() spacing();
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 50% 50%;
+  }
+
+  @media (max-width: 900px) {
+    grid-template-columns: 100%;
+  }
 }
 
 .NavigationContainer {
