@@ -16,3 +16,7 @@ This is an interactive reference for using [Highcharts](https://www.highcharts.c
 - [node-sass](https://github.com/sass/node-sass/releases/tag/v4.10.0) 4.10.0
 - [Polaris](https://github.com/Shopify/polaris-react/releases/tag/v3.1.1) 3.1.1
 - [Highcharts](https://github.com/highcharts/highcharts/releases/tag/v6.1.1) 6.1.1
+
+## Disclaimer
+
+This is in no way associated with Shopify or Highcharts. This is an independent project intended for personal use.
