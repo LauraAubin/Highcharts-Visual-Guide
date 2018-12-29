@@ -6,9 +6,7 @@ import {
   TextField,
   Icon,
   Stack,
-  Button,
-  Collapsible,
-  List
+  Select
 } from "@shopify/polaris";
 import Chart from "./components/Chart";
 
@@ -16,51 +14,71 @@ import "./Card.scss";
 
 interface Props {
   name: string;
-  description?: string;
-  popoverItems?: string[];
+  description: string;
+  selectItems?: { label: string; value: string }[];
   link: string;
   implementation: string;
-  textFieldPlaceHolder: string;
+  textFieldPlaceHolder?: string;
 }
 
 interface State {
   input: string;
-  expandArea: boolean;
+  valueSelected: string;
 }
 
 class Card extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { input: "", expandArea: false };
+    this.state = { input: "", valueSelected: "" };
   }
 
   handleInput = (input: string) => {
     this.setState({ input });
   };
 
-  handleExpandableArea = () => {
-    const { expandArea } = this.state;
-
-    this.setState({ expandArea: !expandArea });
+  handleValueSelected = (newValue: string) => {
+    this.setState({ valueSelected: newValue });
   };
 
   public render() {
     const {
       name,
       description,
-      popoverItems,
+      selectItems,
       link,
       implementation,
       textFieldPlaceHolder
     } = this.props;
-    const { input, expandArea } = this.state;
+    const { input, valueSelected } = this.state;
 
     const evaluatedLineWidth = input === "" ? 2 : parseInt(input);
+
+    const valueMarkup = selectItems ? (
+      <div className="SelectButton">
+        <Select
+          label=""
+          options={selectItems}
+          onChange={this.handleValueSelected}
+          value={valueSelected}
+        />
+      </div>
+    ) : (
+      <div className="TextField">
+        <TextField
+          label="Input field"
+          labelHidden
+          value={input}
+          placeholder={textFieldPlaceHolder}
+          onChange={this.handleInput}
+        />
+      </div>
+    );
 
     return (
       <div className="Card">
         <Stack distribution="equalSpacing" alignment="center" spacing="none">
           <Subheading>{name}</Subheading>
+
           <a className="Link" href={link} target="_blank">
             <Icon source="external" color="inkLighter" />
           </a>
@@ -68,35 +86,13 @@ class Card extends React.Component<Props, State> {
 
         <TextStyle variation="subdued">{description}</TextStyle>
 
-        {popoverItems && (
-          <div className="PopoverButton">
-            <Stack vertical>
-              <Button
-                onClick={this.handleExpandableArea}
-                ariaExpanded={expandArea}
-              >
-                Possible values
-              </Button>
-              <Collapsible open={expandArea} id="basic-collapsible">
-                <div className="popoverList">
-                  <List type="bullet">
-                    {popoverItems.map(item => (
-                      <List.Item>{item}</List.Item>
-                    ))}
-                  </List>
-                </div>
-              </Collapsible>
-            </Stack>
-          </div>
-        )}
-
         <div className="Chart">
           <Chart
             id={name}
             lineColor={name === "Line color" ? input : undefined}
             lineWidth={name === "Line width" ? evaluatedLineWidth : undefined}
-            cursor={name === "Cursor type" ? input : undefined}
-            dashStyle={name === "Dash style" ? input : undefined}
+            cursor={name === "Cursor type" ? valueSelected : undefined}
+            dashStyle={name === "Dash style" ? valueSelected : undefined}
           />
         </div>
 
@@ -104,15 +100,7 @@ class Card extends React.Component<Props, State> {
           <div className="Code">{implementation}</div>
         </Stack>
 
-        <div className="TextField">
-          <TextField
-            label="Input field"
-            labelHidden
-            value={input}
-            placeholder={textFieldPlaceHolder}
-            onChange={this.handleInput}
-          />
-        </div>
+        {valueMarkup}
       </div>
     );
   }
