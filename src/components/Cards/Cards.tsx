@@ -86,6 +86,17 @@ class Cards extends React.Component<Props, {}> {
         ]}
         link="https://api.highcharts.com/highcharts/plotOptions.line.cursor"
         implementation="{plotOptions: {line: {cursor: value}}"
+      />,
+      <Card
+        name="Data labels"
+        description="..."
+        link="https://api.highcharts.com/highcharts/plotOptions.line.dataLabels"
+        implementation="..."
+        selectItems={[
+          { label: "True", value: "True" },
+          { label: "False", value: "False" }
+        ]}
+        booleanChoice={true}
       />
     ];
 

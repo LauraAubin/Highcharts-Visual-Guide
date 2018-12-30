@@ -1,5 +1,5 @@
 import React from "react";
-
+import autobind from 'autobind-decorator'
 import {
   Subheading,
   TextStyle,
@@ -16,6 +16,7 @@ interface Props {
   name: string;
   description: string;
   selectItems?: { label: string; value: string }[];
+  booleanChoice?: boolean;
   link: string;
   implementation: string;
   textFieldPlaceHolder?: string;
@@ -24,12 +25,13 @@ interface Props {
 interface State {
   input: string;
   valueSelected: string;
+  booleanSelected: boolean;
 }
 
 class Card extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { input: "", valueSelected: "" };
+    this.state = { input: "", valueSelected: "", booleanSelected: true };
   }
 
   handleInput = (input: string) => {
@@ -40,16 +42,24 @@ class Card extends React.Component<Props, State> {
     this.setState({ valueSelected: newValue });
   };
 
+  @autobind
+  handleBooleanSelected() {
+    const {booleanSelected} = this.state;
+
+    this.setState({ booleanSelected: !booleanSelected });
+  }
+
   public render() {
     const {
       name,
       description,
       selectItems,
+      booleanChoice,
       link,
       implementation,
       textFieldPlaceHolder
     } = this.props;
-    const { input, valueSelected } = this.state;
+    const { input, valueSelected, booleanSelected } = this.state;
 
     const evaluatedLineWidth = input === "" ? 2 : parseInt(input);
 
@@ -58,8 +68,12 @@ class Card extends React.Component<Props, State> {
         <Select
           label=""
           options={selectItems}
-          onChange={this.handleValueSelected}
-          value={valueSelected}
+          onChange={
+            booleanChoice
+              ? this.handleBooleanSelected
+              : this.handleValueSelected
+          }
+          value={booleanChoice ? booleanSelected.toString() : valueSelected}
         />
       </div>
     ) : (
@@ -93,6 +107,7 @@ class Card extends React.Component<Props, State> {
             lineWidth={name === "Line width" ? evaluatedLineWidth : undefined}
             cursor={name === "Cursor type" ? valueSelected : undefined}
             dashStyle={name === "Dash style" ? valueSelected : undefined}
+            dataLabels={name === "Data labels" ? booleanSelected : undefined}
           />
         </div>
 

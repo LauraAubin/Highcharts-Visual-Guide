@@ -16,6 +16,7 @@ interface Props {
   lineWidth?: number;
   cursor?: string;
   dashStyle?: string;
+  dataLabels?: boolean;
 }
 
 class Chart extends React.Component<Props> {
@@ -41,7 +42,8 @@ class Chart extends React.Component<Props> {
       lineColor = defaultHighchartsBlue,
       lineWidth = 3,
       cursor,
-      dashStyle = "solid"
+      dashStyle = "solid",
+      dataLabels = false
     } = this.props;
 
     Highcharts.chart(id, {
@@ -63,6 +65,9 @@ class Chart extends React.Component<Props> {
           lineWidth: lineWidth
         },
         series: {
+          dataLabels: {
+            enabled: dataLabels
+          },
           marker: {
             enabled: false,
             radius: 2,
