@@ -81,7 +81,7 @@ class App extends React.Component<{}, State> {
     return (
       <AppProvider theme={theme}>
         <Frame topBar={topBarMarkup} navigation={navigationMarkup}>
-          <Cards />
+          <Cards searchText={searchText} navigationSelect={navigationSelect} />
         </Frame>
       </AppProvider>
     );
