@@ -12,10 +12,7 @@ interface Props {
   id: string;
   rows?: [string];
   columns?: [number];
-  lineColor?: string;
-  lineWidth?: number;
-  cursor?: string;
-  dashStyle?: string;
+  modifier: { type: string, value: string | number, inUse: boolean };
 }
 
 class Chart extends React.Component<Props> {
@@ -38,11 +35,18 @@ class Chart extends React.Component<Props> {
       id,
       rows = ["a", "b", "c", "d", "e"],
       columns = [1, 2, 6, 2, 1],
-      lineColor = defaultHighchartsBlue,
-      lineWidth = 3,
-      cursor,
-      dashStyle = "solid"
+      modifier
     } = this.props;
+
+    const modifiers = {
+      lineColor: defaultHighchartsBlue,
+      cursor: "pointer",
+      dashStyle: "solid",
+      lineWidth: 3,
+    };
+
+    const inUseItem = {[modifier.type]: modifier.value};
+    const inUseModifiers = modifier.inUse ? {...modifiers, ...inUseItem} : modifiers
 
     Highcharts.chart(id, {
       chart: {
@@ -57,10 +61,10 @@ class Chart extends React.Component<Props> {
       },
       plotOptions: {
         line: {
-          color: lineColor,
-          cursor: cursor,
-          dashStyle: dashStyle,
-          lineWidth: lineWidth
+          color: inUseModifiers.lineColor,
+          cursor: inUseModifiers.cursor,
+          dashStyle: inUseModifiers.dashStyle,
+          lineWidth: inUseModifiers.lineWidth
         },
         series: {
           marker: {

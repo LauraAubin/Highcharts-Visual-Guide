@@ -19,6 +19,7 @@ interface Props {
   link: string;
   implementation: string;
   textFieldPlaceHolder?: string;
+  identifier: string;
 }
 
 interface State {
@@ -47,11 +48,10 @@ class Card extends React.Component<Props, State> {
       selectItems,
       link,
       implementation,
-      textFieldPlaceHolder
+      textFieldPlaceHolder,
+      identifier
     } = this.props;
     const { input, valueSelected } = this.state;
-
-    const evaluatedLineWidth = input === "" ? 2 : parseInt(input);
 
     const valueMarkup = selectItems ? (
       <div className="SelectButton">
@@ -74,6 +74,10 @@ class Card extends React.Component<Props, State> {
       </div>
     );
 
+    const checkForNumberInputs =
+      identifier === "lineWidth" ? parseInt(input) : input;
+    const modifierValue = input === "" ? valueSelected : checkForNumberInputs;
+
     return (
       <div className="Card">
         <Stack distribution="equalSpacing" alignment="center" spacing="none">
@@ -89,10 +93,11 @@ class Card extends React.Component<Props, State> {
         <div className="Chart">
           <Chart
             id={name}
-            lineColor={name === "Line color" ? input : undefined}
-            lineWidth={name === "Line width" ? evaluatedLineWidth : undefined}
-            cursor={name === "Cursor type" ? valueSelected : undefined}
-            dashStyle={name === "Dash style" ? valueSelected : undefined}
+            modifier={{
+              type: identifier,
+              value: modifierValue,
+              inUse: modifierValue !== ""
+            }}
           />
         </div>
 
