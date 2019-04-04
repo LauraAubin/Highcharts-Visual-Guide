@@ -15,7 +15,7 @@ import "./Card.scss";
 interface Props {
   name: string;
   description: string;
-  selectItems?: { label: string; value: string }[];
+  selectedItems?: { label: string; value: string }[];
   link: string;
   implementation: string;
   textFieldPlaceHolder?: string;
@@ -45,7 +45,7 @@ class Card extends React.Component<Props, State> {
     const {
       name,
       description,
-      selectItems,
+      selectedItems,
       link,
       implementation,
       textFieldPlaceHolder,
@@ -53,11 +53,11 @@ class Card extends React.Component<Props, State> {
     } = this.props;
     const { input, valueSelected } = this.state;
 
-    const valueMarkup = selectItems ? (
+    const valueMarkup = selectedItems ? (
       <div className="SelectButton">
         <Select
           label=""
-          options={selectItems}
+          options={selectedItems}
           onChange={this.handleValueSelected}
           value={valueSelected}
         />

@@ -1,9 +1,7 @@
 import React from "react";
 
-import LineColor from "./Cards/LineColor";
-import LineWidth from "./Cards/LineWidth";
-import DashStyle from "./Cards/DashStyle";
-import CursorType from "./Cards/CursorType";
+import allCardDetails from "./CardDetails";
+import Card from "./components/Card";
 
 interface Props {
   searchText: string;
@@ -14,25 +12,7 @@ class Cards extends React.Component<Props, {}> {
   public render() {
     const { searchText, navigationSelect } = this.props;
 
-    const arrayOfCards = [];
-    arrayOfCards.push(
-      <LineColor
-        name="Line color"
-        implementation="{plotOptions: {line: {color: value}}"
-      />,
-      <LineWidth
-        name="Line width"
-        implementation="{plotOptions: {line: {lineWidth: value}}"
-      />,
-      <DashStyle
-        name="Dash style"
-        implementation="{plotOptions: {line: {dashStyle: value}}"
-      />,
-      <CursorType
-        name="Cursor type"
-        implementation="{plotOptions: {line: {cursor: value}}"
-      />
-    );
+    const arrayOfCards = allCardDetails.map(i => <Card {...i} />);
 
     const filterWithSearch = arrayOfCards.filter(card =>
       this.cardName(card).includes(searchText.toLowerCase())
