@@ -43,6 +43,7 @@ class Chart extends React.Component<Props> {
       cursor: "pointer",
       dashStyle: "solid",
       lineWidth: 3,
+      backgroundColor: "white"
     };
 
     const inUseItem = {[modifier.type]: modifier.value};
@@ -50,7 +51,8 @@ class Chart extends React.Component<Props> {
 
     Highcharts.chart(id, {
       chart: {
-        height: 200
+        height: 200,
+        backgroundColor: inUseModifiers.backgroundColor
       },
       credits: {
         enabled: false

@@ -67,6 +67,10 @@ class App extends React.Component<{}, State> {
             allowMultiple
             choices={[
               {
+                label: "chart",
+                value: "chart"
+              },
+              {
                 label: "plotOptions",
                 value: "plotOptions"
               }
