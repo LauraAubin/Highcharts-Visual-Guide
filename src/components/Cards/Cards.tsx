@@ -5,12 +5,12 @@ import Card from "./components/Card";
 
 interface Props {
   searchText: string;
-  navigationSelect: [string];
+  navigationSelect: string[];
 }
 
 class Cards extends React.Component<Props, {}> {
   public render() {
-    const { searchText, navigationSelect } = this.props;
+    const { searchText } = this.props;
 
     const arrayOfCards = allCardDetails.map(i => <Card {...i} />);
 
@@ -18,24 +18,38 @@ class Cards extends React.Component<Props, {}> {
       this.cardName(card).includes(searchText.toLowerCase())
     );
 
-    const joinedNavigationString = navigationSelect.join("").toLowerCase();
     const filterWithNavigation = arrayOfCards.filter(card =>
-      this.cardImplementation(card).includes(joinedNavigationString)
+      this.checkForRelatableText(card)
     );
 
-    const allFilters = filterWithSearch.filter(i =>
+    const cardsAfterAllFilters = filterWithSearch.filter(i =>
       filterWithNavigation.includes(i)
     );
 
-    return <div className="CardContainer">{allFilters}</div>;
+    return <div className="CardContainer">{cardsAfterAllFilters}</div>;
   }
 
   private cardName(card: JSX.Element) {
     return card.props.name.toLowerCase();
   }
 
-  private cardImplementation(card: JSX.Element) {
-    return card.props.implementation.toLowerCase();
+  private cardImplementationText(card: JSX.Element) {
+    return card.props.implementation;
+  }
+
+  private checkForRelatableText(card: any) {
+    const { navigationSelect } = this.props;
+
+    if (navigationSelect.length === 0) {
+      return true;
+    }
+
+    const implementationText = this.cardImplementationText(card);
+
+    return navigationSelect.some(function(filter) {
+      // breaks when this is true
+      return implementationText.includes(filter);
+    });
   }
 }
 export default Cards;

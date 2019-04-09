@@ -13,13 +13,13 @@ import "./App.scss";
 
 interface State {
   searchText: string;
-  navigationSelect: [string];
+  navigationSelect: string[];
 }
 
 class App extends React.Component<{}, State> {
   constructor(state: State) {
     super(state);
-    this.state = { searchText: "", navigationSelect: [""] };
+    this.state = { searchText: "", navigationSelect: [] };
   }
 
   handleSearchField = (value: string) => {
